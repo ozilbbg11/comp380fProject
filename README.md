@@ -14,13 +14,13 @@ Then run the sql file within the folder `/src/main/resources/` to initialize the
 ---
 
 You may use the following account to test the admin function and create lecture function.
-```
-username: keith
-password: keithpw
-```
+
+*username: keith
+*password: keithpw
+
 
 And use the following account to test the student view.
-```
-username: mary
-password: marypw
-```
+
+*username: mary
+*password: marypw
+
