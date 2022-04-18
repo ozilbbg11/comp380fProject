@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Create lecture</title>
-</head>
-<body>
-<c:url var="logoutUrl" value="/cslogout"/>
-<form action="${logoutUrl}" method="post">
-    <input type="submit" value="Log out" />
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-</form>
+    <head>
+        <title>Create lecture</title>
+        <link rel="stylesheet" href="<c:url value="/resources/css/dropzone.css" />">
 
-<h2>Create a Lecture</h2>
-    <form:form method="POST" enctype="multipart/form-data"
-                             modelAttribute="lectureForm">
-        <form:label path="subject">Subject</form:label><br />
-        <form:input type="text" path="subject" /><br /><br />
-        <form:label path="body">Body</form:label><br />
-        <form:textarea path="body" rows="5" cols="30" /><br /><br />
-        <b>Attachments</b><br />
-        <input type="file" name="attachments" multiple="multiple" /><br /><br />
-        <input type="submit" value="Submit"/>
-    </form:form>
-</body>
+    </head>
+    <body class="d-flex flex-column h-100 vsc-initialized">
+        <%@include file="../header.jsp" %>
+        <div  class="container-fluid p-3">
+            <h2>Create Lecture</h2>
+            <form:form method="POST" enctype="multipart/form-data" modelAttribute="lectureForm"   class="row g-3">
+                <div class="col-md-3">
+                    <form:input type="text" path="subject" class="form-control" placeholder="Subject"   />
+                </div>
+                <div class="col-md-3">
+                    <form:input  type="text"  path="body"  class="form-control" placeholder="Title"   />
+                </div>
+                <div class=" col-md-3 files"><input type="file" name="attachments" class="form-control"  multiple placeholder="Attachments" /></div>
+                <div class="col-md-1"><input type="submit" class="btn btn-primary rounded-pill" value="Submit"/></div>
+                </form:form>
+        </div>
+        <%@include file="../footer.jsp" %>
+    </body>
 </html>
