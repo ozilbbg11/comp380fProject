@@ -1,23 +1,39 @@
-CREATE TABLE users (
-    username VARCHAR(50) NOT NULL,
-    password VARCHAR(50) NOT NULL,
-    PRIMARY KEY (username)
-);
+create table "NBUSER".USERS
+(
+	USERNAME VARCHAR(50) not null primary key,
+	PASSWORD VARCHAR(50) not null,
+	FULL_NAME VARCHAR(50),
+	PHONE_NUMBER VARCHAR(50),
+	ADDRESS VARCHAR(50)
+)
 
-CREATE TABLE user_roles (
-    user_role_id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
-    username VARCHAR(50) NOT NULL,
-    role VARCHAR(50) NOT NULL,
-    PRIMARY KEY (user_role_id),
-    FOREIGN KEY (username) REFERENCES users(username)
-);
+create table "NBUSER".USER_ROLES
+(
+	USER_ROLE_ID INTEGER default AUTOINCREMENT: start 1 increment 1 not null primary key,
+	USERNAME VARCHAR(50) not null,
+	ROLE VARCHAR(50) not null
+)
 
-INSERT INTO users VALUES ('keith', '{noop}keithpw');
-INSERT INTO user_roles(username, role) VALUES ('keith', 'ROLE_USER');
-INSERT INTO user_roles(username, role) VALUES ('keith', 'ROLE_ADMIN');
+INSERT INTO NBUSER.USERS (USERNAME, PASSWORD, FULL_NAME, PHONE_NUMBER, ADDRESS) 
+	VALUES ('keith', '{noop}keithpw', NULL, NULL, NULL);
+INSERT INTO NBUSER.USERS (USERNAME, PASSWORD, FULL_NAME, PHONE_NUMBER, ADDRESS) 
+	VALUES ('john', '{noop}johnpw', NULL, NULL, NULL);
+INSERT INTO NBUSER.USERS (USERNAME, PASSWORD, FULL_NAME, PHONE_NUMBER, ADDRESS) 
+	VALUES ('mary', '{noop}marypw', NULL, NULL, NULL);
+INSERT INTO NBUSER.USERS (USERNAME, PASSWORD, FULL_NAME, PHONE_NUMBER, ADDRESS) 
+	VALUES ('danny', '{noop}dannypw1', 'awd', '44538453', 'asdawdasd');
+INSERT INTO NBUSER.USERS (USERNAME, PASSWORD, FULL_NAME, PHONE_NUMBER, ADDRESS) 
+	VALUES ('peter', '{noop}peterpw1', 'awdas', '4568453', 'asdawdasd');
 
-INSERT INTO users VALUES ('john', '{noop}johnpw');
-INSERT INTO user_roles(username, role) VALUES ('john', 'ROLE_ADMIN');
-
-INSERT INTO users VALUES ('mary', '{noop}marypw');
-INSERT INTO user_roles(username, role) VALUES ('mary', 'ROLE_USER');
+INSERT INTO NBUSER.USER_ROLES (USERNAME, "ROLE") 
+	VALUES ('keith', 'ROLE_USER');
+INSERT INTO NBUSER.USER_ROLES (USERNAME, "ROLE") 
+	VALUES ('keith', 'ROLE_ADMIN');
+INSERT INTO NBUSER.USER_ROLES (USERNAME, "ROLE") 
+	VALUES ('john', 'ROLE_ADMIN');
+INSERT INTO NBUSER.USER_ROLES (USERNAME, "ROLE") 
+	VALUES ('mary', 'ROLE_USER');
+INSERT INTO NBUSER.USER_ROLES (USERNAME, "ROLE") 
+	VALUES ('danny', 'ROLE_USER');
+INSERT INTO NBUSER.USER_ROLES (USERNAME, "ROLE") 
+	VALUES ('peter', 'ROLE_USER');
