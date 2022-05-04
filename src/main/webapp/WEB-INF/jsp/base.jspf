@@ -15,6 +15,6 @@
     <%
         String locale = request.getQueryString();
         if(locale == null){
-            locale = "language=en_US";
+            locale = "language=" + pageContext.getResponse().getLocale();
         }
     %>
