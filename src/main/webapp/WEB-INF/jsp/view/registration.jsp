@@ -35,28 +35,28 @@
     <body>
         <h2>Create a User</h2>
         <form:form method="POST" enctype="multipart/form-data" modelAttribute="user" onsubmit="checkAllInfo()">
-            <form:label path="username"><spring:message code="loginPage.username" text="Default text" /></form:label><br/>
+            <form:label path="username"><spring:message code="registragtionPage.username" text="Default text" /></form:label><br/>
             <form:input type="text" path="username" /><br/><br/>
-            <form:label path="password">Password</form:label><br/>
+            <form:label path="password"><spring:message code="registragtionPage.password" text="Default text" /></form:label><br/>
             <form:input type="password" path="password" oninput="validPassword()" /><br/><br/>
             <div id="passwordHint" class="font-weight-lighter">
                 <ul>
-                    <li id="rule1">Your password must be at least 8 characters long</li>
-                    <li id="rule2">Must contain at least 1 number</li>
+                    <li id="rule1"><spring:message code="registragtionPage.password_log" text="Default text" /></li>
+                    <li id="rule2"><spring:message code="registragtionPage.password_log2" text="Default text" /></li>
                 </ul>
             </div>
-            <form:label path="confirmPassword">Confirm password</form:label><br>
+            <form:label path="confirmPassword"><spring:message code="registragtionPage.confirmPassword" text="Default text" /></form:label><br>
             <form:input type="password" path="confirmPassword" oninput="checkSamePassword()"></form:input><br><br>
                 <div id="confirmPasswordHint" class="font-weight-lighter d-none">
                     <ul>
-                        <li>Passwords do not match</li>
+                        <li><spring:message code="registragtionPage.confirmPassword_log" text="Default text" /></li>
                     </ul>
                 </div>
-            <form:label path="full_Name">Full Name</form:label><br>
+            <form:label path="full_Name"><spring:message code="registragtionPage.fullName" text="Default text" /></form:label><br>
             <form:input type="text" path="full_Name"></form:input><br><br>
-            <form:label path="phone_Number">Phone Number</form:label><br>
+            <form:label path="phone_Number"><spring:message code="registragtionPage.phone" text="Default text" /></form:label><br>
             <form:input type="text" path="phone_Number" oninput="onlyDigit(this)"></form:input><br><br>
-            <form:label path="address">Address</form:label>
+            <form:label path="address"><spring:message code="registragtionPage.address" text="Default text" /></form:label>
             <form:textarea path="address"></form:textarea>
             <input type="submit" value="Add User" id="submit" />
         </form:form>
