@@ -7,7 +7,7 @@
                 <li class="nav-item"><a class="nav-link" href="<c:url value="/user" />">Manage User Accounts</a> </li>
                 </security:authorize>
                 <security:authorize access="!hasAnyRole('USER','ADMIN')">
-                <li class="nav-item"><a class="nav-link" href="<c:url value="/registration?"/><%=locale%>">Create Accounts</a> </li>
+                <li class="nav-item"><a class="nav-link" href="<c:url value="/registration?"/><%=locale%>"><spring:message code="headerPage.createAccount" text="Default text"/></a> </li>
                 </security:authorize>
         </ul>
 
