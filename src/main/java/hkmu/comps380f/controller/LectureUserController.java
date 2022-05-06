@@ -1,9 +1,14 @@
 package hkmu.comps380f.controller;
 
+import hkmu.comps380f.dao.CommentRepository;
 import hkmu.comps380f.dao.LectureUserRepository;
+import hkmu.comps380f.model.Comment;
 import hkmu.comps380f.model.LectureUser;
 import java.io.IOException;
+import java.security.Principal;
+import java.util.List;
 import javax.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +25,9 @@ public class LectureUserController {
 
     @Resource
     private LectureUserRepository lectureUserRepo;
+    
+    @Autowired
+    private CommentRepository commentRepo;
 
     @GetMapping({"", "/list"})
     public String list(ModelMap model) {
@@ -72,6 +80,7 @@ public class LectureUserController {
         lectureUserRepo.save(user);
         return new RedirectView("/user/list", true);
     }
+    
 
     @GetMapping("/delete/{username}")
     public View deleteLecture(@PathVariable("username") String username) {

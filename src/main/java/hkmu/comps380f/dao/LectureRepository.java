@@ -10,7 +10,7 @@ public interface LectureRepository {
 
     public long createLecture(String customerName, String subject, String body,
             List<MultipartFile> attachments) throws IOException;
-
+    
     public List<Lecture> getLectures();
 
     public List<Lecture> getLecture(long id);

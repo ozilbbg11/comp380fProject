@@ -164,6 +164,8 @@ public class LectureRepositoryImpl implements LectureRepository {
     public void deleteLecture(long id) {
         final String SQL_DELETE_lecture = "delete from lecture where id=?";
         final String SQL_DELETE_ATTACHMENTS = "delete from attachment where lecture_id=?";
+        final String SQL_DELETE_COMMENTS = "delete from comment where lecture_id=?";
+        jdbcOp.update(SQL_DELETE_COMMENTS, id);
         jdbcOp.update(SQL_DELETE_ATTACHMENTS, id);
         jdbcOp.update(SQL_DELETE_lecture, id);
         System.out.println("Lecture " + id + " deleted");

@@ -15,3 +15,14 @@ CREATE TABLE attachment (
     PRIMARY KEY (id),
     FOREIGN KEY (lecture_id) REFERENCES lecture(id)
 );
+
+CREATE TABLE comment (
+    id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+    content VARCHAR(255) DEFAULT NULL,
+    USERNAME VARCHAR(50)  NOT NULL,
+    datetime Timestamp DEFAULT NULL,
+    lecture_id INTEGER NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (lecture_id) REFERENCES lecture(id),
+    FOREIGN KEY (username) REFERENCES users(username)
+);

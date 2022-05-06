@@ -1,7 +1,9 @@
 package hkmu.comps380f.controller;
 
+import hkmu.comps380f.dao.CommentRepository;
 import hkmu.comps380f.dao.LectureRepository;
 import hkmu.comps380f.model.Attachment;
+import hkmu.comps380f.model.Comment;
 import hkmu.comps380f.model.Lecture;
 import hkmu.comps380f.view.DownloadingView;
 import java.io.IOException;
@@ -9,6 +11,7 @@ import java.security.Principal;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +29,9 @@ public class LectureController {
 
     @Resource
     private LectureRepository lectureRepo;
+    
+    @Autowired
+    private CommentRepository commentRepo;
 
     @GetMapping({"", "/list"})
     public String list(ModelMap model) {
@@ -69,6 +75,28 @@ public class LectureController {
             this.attachments = attachments;
         }
     }
+    
+    public static class CommentForm{
+        private String content;
+        private long lectureId;
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
+
+        public long getLectureId() {
+            return lectureId;
+        }
+
+        public void setLectureId(long lectureId) {
+            this.lectureId = lectureId;
+        }
+        
+    }
 
     @PostMapping("/create")
     public String create(Form form, Principal principal) throws IOException {
@@ -80,11 +108,14 @@ public class LectureController {
     @GetMapping("/view/{lectureId}")
     public String view(@PathVariable("lectureId") long lectureId, ModelMap model) {
         List<Lecture> lectures = lectureRepo.getLecture(lectureId);
+        List<Comment> comments = commentRepo.getCommentByLectureId(lectureId);
         if (lectures.isEmpty()) {
             return "redirect:/lecture/list";
         }
         model.addAttribute("lectureId", lectureId);
         model.addAttribute("lecture", lectures.get(0));
+        model.addAttribute("comments", comments);
+        model.addAttribute("commentForm", new CommentForm());
         return "view";
     }
 
@@ -145,4 +176,25 @@ public class LectureController {
                 form.getBody(), form.getAttachments());
         return "redirect:/lecture/view/" + lectureId;
     }
+    
+    @PostMapping("/addComment")
+    public String addComment(CommentForm commentForm, Principal principal)throws IOException{
+        long lectureId = commentForm.getLectureId();
+        commentRepo.createComment(commentForm.getContent(), principal.getName(), lectureId);
+        return "redirect:/lecture/view/" + lectureId;
+    }
+    
+    @GetMapping("/deleteComment/{commentId}/{lectureId}")
+    public String deleteComment(@PathVariable("commentId") long commentId,@PathVariable("lectureId") long lectureId ){
+        commentRepo.deleteComment(commentId);
+        return "redirect:/lecture/view/" + lectureId;
+    }
+    
+    @GetMapping("/commentHistory")
+    public String commentHistory(Principal principal, ModelMap model){
+        List<Comment> comments = commentRepo.getCommentByUser(principal.getName());
+        model.addAttribute("comments",comments);
+        return "commentHistory";
+    }
+    
 }

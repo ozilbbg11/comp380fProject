@@ -3,8 +3,11 @@
         <ul class="navbar-nav p-1">
             <a class="navbar-brand fw-bolder " href="/project/lecture"><spring:message code="headerPage.index" text="Default text"/></a>
             <security:authorize access="hasRole('ADMIN')"> 
-                <li class="nav-item"><a class="nav-link" href="<c:url value="/lecture/create" />">Create a Lecture</a></li>
+                <li class="nav-item"><a class="nav-link" href="<c:url value="/lecture/create" />"><spring:message code="add.createLec" text="Default text"/></a></li>
                 <li class="nav-item"><a class="nav-link" href="<c:url value="/user" />">Manage User Accounts</a> </li>
+                </security:authorize>
+                <security:authorize access="hasAnyRole('USER','ADMIN')"> 
+                <li class="nav-item"><a class="nav-link" href="<c:url value="/lecture/commentHistory" />"><spring:message code="commentHistry" text="Default text"/></a></li>
                 </security:authorize>
                 <security:authorize access="!hasAnyRole('USER','ADMIN')">
                 <li class="nav-item"><a class="nav-link" href="<c:url value="/registration?"/><%=locale%>"><spring:message code="headerPage.createAccount" text="Default text"/></a> </li>
@@ -20,7 +23,7 @@
                 <security:authorize access="hasAnyRole('USER','ADMIN')">
                     <c:url var="logoutUrl" value="/cslogout"/>
                 <form  action="${logoutUrl}" method="post">
-                    <input class="btn btn-danger ms-auto position-relative " style="top: 8px;" type="submit" value="Logout" />
+                    <input class="btn btn-danger ms-auto position-relative "     style="top: 8px;" type="submit" value="Logout" />
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 </form>
             </security:authorize>
