@@ -27,7 +27,9 @@
         <intercept-url pattern="/user/**" access="hasRole('ADMIN')" /> 
         <intercept-url pattern="/lecture/delete/**" access="hasRole('ADMIN')" /> 
         <intercept-url pattern="/lecture/deleteComment/**" access="hasRole('ADMIN')" /> 
-        <intercept-url pattern="/lecture/**" access="hasAnyRole('USER','ADMIN')" />
+        <intercept-url pattern="/lecture/edit/**" access="hasRole('ADMIN')" />
+        <intercept-url pattern="/lecture/commentHistory" access="hasAnyRole('USER','ADMIN')" />
+        <intercept-url pattern="/lecture/view/**" access="hasAnyRole('USER','ADMIN')" />
         <form-login login-page="/cslogin" login-processing-url="/cslogin"
                     authentication-failure-url="/cslogin?error" />
         <logout logout-url="/cslogout" logout-success-url="/cslogin?logout"
