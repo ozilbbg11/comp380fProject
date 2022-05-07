@@ -24,7 +24,8 @@
     </b:bean> 
 
     <http>
-        <intercept-url pattern="/user/**" access="hasRole('ADMIN')" /> 
+        <intercept-url pattern="/user/**" access="hasRole('ADMIN')" />
+        <intercept-url pattern="/guestbook/**" access="hasAnyRole('USER','ADMIN')" />
         <intercept-url pattern="/lecture/delete/**" access="hasRole('ADMIN')" /> 
         <intercept-url pattern="/lecture/deleteComment/**" access="hasRole('ADMIN')" /> 
         <intercept-url pattern="/lecture/edit/**" access="hasRole('ADMIN')" />
