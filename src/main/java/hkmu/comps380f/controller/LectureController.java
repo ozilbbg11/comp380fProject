@@ -2,6 +2,7 @@ package hkmu.comps380f.controller;
 
 import hkmu.comps380f.dao.CommentRepository;
 import hkmu.comps380f.dao.LectureRepository;
+import hkmu.comps380f.dao.PollEntryRepository;
 import hkmu.comps380f.model.Attachment;
 import hkmu.comps380f.model.Comment;
 import hkmu.comps380f.model.Lecture;
@@ -29,13 +30,17 @@ public class LectureController {
 
     @Resource
     private LectureRepository lectureRepo;
-    
+
     @Autowired
     private CommentRepository commentRepo;
+
+    @Autowired
+    private PollEntryRepository pEntryRepo;
 
     @GetMapping({"", "/list"})
     public String list(ModelMap model) {
         model.addAttribute("lectureDatabase", lectureRepo.getLectures());
+        model.addAttribute("entries", pEntryRepo.listEntries());
         return "list";
     }
 
@@ -75,8 +80,9 @@ public class LectureController {
             this.attachments = attachments;
         }
     }
-    
-    public static class CommentForm{
+
+    public static class CommentForm {
+
         private String content;
         private long lectureId;
 
@@ -95,7 +101,7 @@ public class LectureController {
         public void setLectureId(long lectureId) {
             this.lectureId = lectureId;
         }
-        
+
     }
 
     @PostMapping("/create")
@@ -176,25 +182,25 @@ public class LectureController {
                 form.getBody(), form.getAttachments());
         return "redirect:/lecture/view/" + lectureId;
     }
-    
+
     @PostMapping("/addComment")
-    public String addComment(CommentForm commentForm, Principal principal)throws IOException{
+    public String addComment(CommentForm commentForm, Principal principal) throws IOException {
         long lectureId = commentForm.getLectureId();
         commentRepo.createComment(commentForm.getContent(), principal.getName(), lectureId);
         return "redirect:/lecture/view/" + lectureId;
     }
-    
+
     @GetMapping("/deleteComment/{commentId}/{lectureId}")
-    public String deleteComment(@PathVariable("commentId") long commentId,@PathVariable("lectureId") long lectureId ){
+    public String deleteComment(@PathVariable("commentId") long commentId, @PathVariable("lectureId") long lectureId) {
         commentRepo.deleteComment(commentId);
         return "redirect:/lecture/view/" + lectureId;
     }
-    
+
     @GetMapping("/commentHistory")
-    public String commentHistory(Principal principal, ModelMap model){
+    public String commentHistory(Principal principal, ModelMap model) {
         List<Comment> comments = commentRepo.getCommentByUser(principal.getName());
-        model.addAttribute("comments",comments);
+        model.addAttribute("comments", comments);
         return "commentHistory";
     }
-    
+
 }
