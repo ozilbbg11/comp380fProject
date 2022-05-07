@@ -12,4 +12,6 @@ public interface LectureUserRepository {
     public List<LectureUser> findById(String username);
 
     public void delete(String username);
+
+    public void edit(LectureUser user);
 }
