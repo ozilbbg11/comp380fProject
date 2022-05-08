@@ -15,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 import hkmu.comps380f.dao.CommentEntryRepository;
+import hkmu.comps380f.dao.PollAnsEntryRepository;
+import hkmu.comps380f.model.PollAnsEntry;
 import java.io.IOException;
+import java.security.Principal;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,6 +30,8 @@ public class PollpageController  {
     private PollEntryRepository pEntryRepo;
     @Resource
     private CommentEntryRepository gbEntryRepo;
+    @Resource
+    private PollAnsEntryRepository paEntryRepo;
 
     @GetMapping({"", "/view"})
     public String index(ModelMap model) {
@@ -72,11 +77,21 @@ public class PollpageController  {
         return "CommentPage";
     }
 
-    @PostMapping("/comment")
-    public View voteHandle(PollEntry entry) {
-        return new RedirectView("/guestbook/comment?id=" + entry.getId(), true);
-    }
-    
+      @GetMapping("/comment/vote")
+    public View voteHandle(@RequestParam("id") Integer entryId, @RequestParam("ans") Integer ans, ModelMap model, Principal principal) {
+        try{
+            PollAnsEntry paEntry = paEntryRepo.getEntryByPollIdName(entryId, principal.getName());
+            paEntry.setAns(ans);
+            paEntryRepo.updateEntry(paEntry);
+        }catch(Exception e){
+            PollAnsEntry paEntry = new PollAnsEntry();
+            paEntry.setPollId(entryId);
+            paEntry.setName(principal.getName());
+            paEntry.setAns(ans);
+            paEntryRepo.addEntry(paEntry);
+        }
+        return new RedirectView("/guestbook/comment?id=" + entryId, true);
+    }   
     @GetMapping("/comment/add")
     public ModelAndView addCommentForm(@RequestParam("id") Integer entryId, ModelMap model) {
         PollEntry entry = pEntryRepo.getEntryById(entryId);
@@ -89,12 +104,12 @@ public class PollpageController  {
         entry.setPollId(pEntry.getId());
         entry.setDate(new Date());
         gbEntryRepo.addEntry(entry);
-        return new RedirectView("/guestbook/commentid=" + entry.getId(), true);
+        return new RedirectView("/guestbook/comment?id=" + entry.getId(), true);
     }
 
     @GetMapping("/comment/delete")
     public String deleteCommentEntry(@RequestParam("id") Integer entryId) {
         gbEntryRepo.removeEntryById(entryId);
-        return "redirect:/guestbook/commentid=" + entryId;
+        return "redirect:/guestbook/comment?id=" + entryId;
     }
 }
