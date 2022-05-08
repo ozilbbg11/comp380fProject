@@ -25,8 +25,8 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/guestbook")
-public class PollpageController  {
-    
+public class PollpageController {
+
     @Resource
     private PollEntryRepository pEntryRepo;
     @Resource
@@ -39,25 +39,25 @@ public class PollpageController  {
         model.addAttribute("entries", pEntryRepo.listEntries());
         return "GuestBook";
     }
-    
+
     @GetMapping("/addPoll")
     public ModelAndView addPollForm() {
         return new ModelAndView("AddPoll", "command", new PollEntry());
     }
-    
+
     @PostMapping("/addPoll")
     public View addPollHandle(PollEntry entry) {
         pEntryRepo.addEntry(entry);
         return new RedirectView("/lecture", true);
     }
-    
+
     @GetMapping("/editPoll")
     public String editPollForm(@RequestParam("id") Integer entryId, ModelMap model) {
         PollEntry entry = pEntryRepo.getEntryById(entryId);
         model.addAttribute("entry", entry);
         return "EditPoll";
     }
-    
+
     @PostMapping("/editPoll")
     public View editPollHandle(PollEntry entry, HttpServletRequest req) throws ServletException, IOException {
         pEntryRepo.updateEntry(entry);
@@ -78,7 +78,7 @@ public class PollpageController  {
         model.addAttribute("choice3", paEntryRepo.answerList(3).size());
         model.addAttribute("choice4", paEntryRepo.answerList(4).size());
         model.addAttribute("name", principal.getName());
-        model.addAttribute("ans",paEntryRepo.listEntries());
+        model.addAttribute("ans", paEntryRepo.listEntries());
         model.addAttribute("entries", gbEntryRepo.listEntries());
         model.addAttribute("entry", entry);
         return "CommentPage";
@@ -86,11 +86,11 @@ public class PollpageController  {
 
     @GetMapping("/comment/vote")
     public View voteHandle(@RequestParam("id") Integer entryId, @RequestParam("ans") Integer ans, ModelMap model, Principal principal) {
-        try{
+        try {
             PollAnsEntry paEntry = paEntryRepo.getEntryByPollIdName(entryId, principal.getName());
             paEntry.setAns(ans);
             paEntryRepo.updateEntry(paEntry);
-        }catch(Exception e){
+        } catch (Exception e) {
             PollAnsEntry paEntry = new PollAnsEntry();
             paEntry.setPollId(entryId);
             paEntry.setName(principal.getName());
@@ -98,14 +98,15 @@ public class PollpageController  {
             paEntryRepo.addEntry(paEntry);
         }
         return new RedirectView("/guestbook/comment?id=" + entryId, true);
-    }   
+    }
+
     @GetMapping("/comment/add")
     public ModelAndView addCommentForm(@RequestParam("id") Integer entryId, ModelMap model) {
         PollEntry entry = pEntryRepo.getEntryById(entryId);
         model.addAttribute("entry", entry);
         return new ModelAndView("AddComment", "command", new CommentEntry());
     }
-    
+
     @PostMapping("/comment/add")
     public View addCommentHandle(@RequestParam("id") Integer entryId, CommentEntry entry, Principal principal) {
         entry.setPollId(entryId);
@@ -114,6 +115,7 @@ public class PollpageController  {
         gbEntryRepo.addEntry(entry);
         return new RedirectView("/guestbook/comment?id=" + entryId, true);
     }
+
     @GetMapping("/comment/delete")
     public String deleteCommentEntry(@RequestParam("id") Integer entryId) {
         CommentEntry entry = gbEntryRepo.getEntryById(entryId);

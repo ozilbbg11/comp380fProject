@@ -39,7 +39,7 @@
             <div class="row g-3">
                 <form:form method="POST" modelAttribute="commentForm" action="/project/lecture/addComment"   class="row g-3">
                     <div class="col-md-11">
-                        <form:input type="text" path="content" class="form-control" placeholder="Type your comment..."   /></div>
+                        <form:input type="text"  required = "required" path="content" class="form-control" placeholder="Type your comment..."   /></div>
                     <div class="col-md-1">
                         <form:input type="hidden" path="lectureId" value="${lectureId}"/>
                         <input type="submit" class="btn btn-primary rounded-pill" value="Submit"/>

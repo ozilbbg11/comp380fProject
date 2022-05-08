@@ -70,6 +70,13 @@ public class PollAnsEntryRepositoryImpl implements PollAnsEntryRepository {
     public List<PollAnsEntry> listEntries() {
         return jdbcOp.query(SQL_SELECT_ALL_ENTRY, new EntryRowMapper());
     }
+    
+    private static final String SQL_SELECT_BY_
+            = "select id, poll_id, name, ans from answer where poll_id=?";
+    @Override
+   public List<PollAnsEntry> getRntryByPollId(Integer id) {
+        return jdbcOp.query(SQL_SELECT_ALL_ENTRY, new EntryRowMapper(),id);
+    }
 
     private static final String SQL_SELECT_ENTRY
             = "select * from answer where poll_id = ? and name = ?";
@@ -82,5 +89,12 @@ public class PollAnsEntryRepositoryImpl implements PollAnsEntryRepository {
     @Override
     public List<PollAnsEntry> answerList(Integer ans) {
         return jdbcOp.query(SQL_ANSWER, new EntryRowMapper(), ans);
+    }
+    private static final String SQL_DELETEANS_ENTRY
+            = "delete from answer where poll_id=?";
+    @Override
+    public void deletePollAnd(int poll_id) {
+        jdbcOp.update(SQL_DELETEANS_ENTRY,
+                poll_id);
     }
 }

@@ -79,8 +79,14 @@ public class PollEntryRepositoryImpl implements PollEntryRepository {
 
     private static final String SQL_DELETE_ENTRY
             = "delete from poll where id = ?";
+    private static final String SQL_DELETE_answer
+            = "delete from ANSWER where poll_id = ?";
+    private static final String SQL_DELETE_guestbook
+            = "delete from guestbook where poll_id = ?";
     @Override
     public void removeEntryById(Integer id) {
+        jdbcOp.update(SQL_DELETE_answer, id);
+        jdbcOp.update(SQL_DELETE_guestbook, id);
         jdbcOp.update(SQL_DELETE_ENTRY, id);
     }
 }

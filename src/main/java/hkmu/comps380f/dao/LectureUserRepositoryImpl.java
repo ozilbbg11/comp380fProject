@@ -93,7 +93,11 @@ public class LectureUserRepositoryImpl implements LectureUserRepository {
         final String SQL_DELETE_USER_COMMENT = "delete from comment where username=?";
         final String SQL_DELETE_USER = "delete from users where username=?";
         final String SQL_DELETE_ROLES = "delete from user_roles where username=?";
+        final String SQL_DELETE_ANS = "delete from answer where name=?";
+        final String SQL_DELETE_GUESY = "delete from guestbook where name=?";
         jdbcOp.update(SQL_DELETE_USER_COMMENT, username);
+        jdbcOp.update(SQL_DELETE_ANS, username);
+        jdbcOp.update(SQL_DELETE_GUESY, username);
         jdbcOp.update(SQL_DELETE_ROLES, username);
         jdbcOp.update(SQL_DELETE_USER, username);
     }
