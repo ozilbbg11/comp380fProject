@@ -36,7 +36,7 @@
     let locale_Eng2 = ""
     let locale_CN2 = ""
 
-    if (!locale_Eng.href.includes("comment")) {
+    if (!locale_Eng.href.includes("comment") && !locale_Eng.href.includes("editPoll")) {
         locale_Eng.href = "?language=en_US"
         locale_CN.href = "?language=zh_CN"
     }
@@ -46,6 +46,15 @@
         locale_Eng.href = locale_Eng2 + "&language=en_US"
     }
     if (locale_CN.href.includes("comment") && !locale_CN.href.includes("language=zh_CN")) {
+        locale_CN2 = locale_CN.href.split("&")[0]
+        locale_CN.href = locale_CN2 + "&language=zh_CN"
+    }
+
+    if (locale_Eng.href.includes("editPoll") && !locale_Eng.href.includes("language=en_US")) {
+        locale_Eng2 = locale_Eng.href.split("&")[0]
+        locale_Eng.href = locale_Eng2 + "&language=en_US"
+    }
+    if (locale_CN.href.includes("editPoll") && !locale_CN.href.includes("language=zh_CN")) {
         locale_CN2 = locale_CN.href.split("&")[0]
         locale_CN.href = locale_CN2 + "&language=zh_CN"
     }
