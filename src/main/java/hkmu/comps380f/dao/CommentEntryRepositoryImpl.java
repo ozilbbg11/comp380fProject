@@ -78,6 +78,13 @@ public class CommentEntryRepositoryImpl implements CommentEntryRepository {
     public CommentEntry getEntryById(Integer id) {
         return jdbcOp.queryForObject(SQL_SELECT_ENTRY, new EntryRowMapper(), id);
     }
+    
+    private static final String SQL_SELECT_ENTRYBYUSER
+            = "select id, poll_id, name, message, date from guestbook where name = ?";
+    @Override
+    public List<CommentEntry> getEntryByName(String name) {
+        return jdbcOp.query(SQL_SELECT_ENTRYBYUSER, new EntryRowMapper(), name);
+    }
 
     private static final String SQL_DELETE_ENTRY
             = "delete from guestbook where id = ?";

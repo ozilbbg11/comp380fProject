@@ -1,10 +1,12 @@
 package hkmu.comps380f.controller;
 
+import hkmu.comps380f.dao.CommentEntryRepository;
 import hkmu.comps380f.dao.CommentRepository;
 import hkmu.comps380f.dao.LectureRepository;
 import hkmu.comps380f.dao.PollEntryRepository;
 import hkmu.comps380f.model.Attachment;
 import hkmu.comps380f.model.Comment;
+import hkmu.comps380f.model.CommentEntry;
 import hkmu.comps380f.model.Lecture;
 import hkmu.comps380f.view.DownloadingView;
 import java.io.IOException;
@@ -36,6 +38,9 @@ public class LectureController {
 
     @Autowired
     private PollEntryRepository pEntryRepo;
+    
+    @Autowired
+    private CommentEntryRepository comentEntryRepo;
 
     @GetMapping({"", "/list"})
     public String list(ModelMap model) {
@@ -103,7 +108,7 @@ public class LectureController {
         }
 
     }
-
+   
     @PostMapping("/create")
     public String create(Form form, Principal principal) throws IOException {
         long lectureId = lectureRepo.createLecture(principal.getName(),
@@ -199,6 +204,8 @@ public class LectureController {
     @GetMapping("/commentHistory")
     public String commentHistory(Principal principal, ModelMap model) {
         List<Comment> comments = commentRepo.getCommentByUser(principal.getName());
+        List<CommentEntry> pollcomments = comentEntryRepo.getEntryByName(principal.getName());
+        model.addAttribute("commentPolls", pollcomments);
         model.addAttribute("comments", comments);
         return "commentHistory";
     }

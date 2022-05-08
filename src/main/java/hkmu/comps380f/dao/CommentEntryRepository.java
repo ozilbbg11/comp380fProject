@@ -13,6 +13,8 @@ public interface CommentEntryRepository {
 
     public CommentEntry getEntryById(Integer id);
 
+    public List<CommentEntry> getEntryByName(String name);
+
     public void removeEntryById(Integer id);
 
 }
