@@ -40,6 +40,11 @@
         locale_Eng.href = "?language=en_US"
         locale_CN.href = "?language=zh_CN"
     }
+    if (locale_Eng.href.includes("commentHistory")) {
+        locale_Eng.href = "?language=en_US"
+        locale_CN.href = "?language=zh_CN"
+    }
+
 
     if (locale_Eng.href.includes("comment") && !locale_Eng.href.includes("language=en_US")) {
         locale_Eng2 = locale_Eng.href.split("&")[0]
