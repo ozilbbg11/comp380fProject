@@ -73,6 +73,10 @@ public class PollpageController  {
     @GetMapping("/comment")
     public String pollPage(@RequestParam("id") Integer entryId, ModelMap model, Principal principal) {
         PollEntry entry = pEntryRepo.getEntryById(entryId);
+        model.addAttribute("choice1", paEntryRepo.answerList(1).size());
+        model.addAttribute("choice2", paEntryRepo.answerList(2).size());
+        model.addAttribute("choice3", paEntryRepo.answerList(3).size());
+        model.addAttribute("choice4", paEntryRepo.answerList(4).size());
         model.addAttribute("name", principal.getName());
         model.addAttribute("ans",paEntryRepo.listEntries());
         model.addAttribute("entries", gbEntryRepo.listEntries());

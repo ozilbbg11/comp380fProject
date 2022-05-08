@@ -12,4 +12,6 @@ public interface PollAnsEntryRepository {
     public List<PollAnsEntry> listEntries();
     
     public PollAnsEntry getEntryByPollIdName(Integer id, String name);
+    
+    public List<PollAnsEntry> answerList(Integer ans);
 }

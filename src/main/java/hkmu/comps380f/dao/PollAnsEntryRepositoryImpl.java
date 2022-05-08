@@ -77,5 +77,10 @@ public class PollAnsEntryRepositoryImpl implements PollAnsEntryRepository {
     public PollAnsEntry getEntryByPollIdName(Integer id, String name) {
         return jdbcOp.queryForObject(SQL_SELECT_ENTRY, new EntryRowMapper(), id, name);
     }
-
+    private static final String SQL_ANSWER
+            = "select * from answer where ans = ?";
+    @Override
+    public List<PollAnsEntry> answerList(Integer ans) {
+        return jdbcOp.query(SQL_ANSWER, new EntryRowMapper(), ans);
+    }
 }

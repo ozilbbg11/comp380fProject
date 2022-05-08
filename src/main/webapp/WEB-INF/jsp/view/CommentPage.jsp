@@ -23,6 +23,10 @@
                 <c:if test="${name == answer.name}">
                     <c:if test="${not empty answer.ans}">
                         <p>Your last selection is choice <c:out value="${answer.ans}" escapeXml="true" /></p>
+                        <p>There are ${choice1} people choose choice 1.</p>
+                        <p>There are ${choice2} people choose choice 2.</p>
+                        <p>There are ${choice3} people choose choice 3.</p>
+                        <p>There are ${choice4} people choose choice 4.</p>
                     </c:if>
                 </c:if>
             </c:if>
