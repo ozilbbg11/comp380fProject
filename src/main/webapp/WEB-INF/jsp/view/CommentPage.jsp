@@ -43,14 +43,16 @@
         <c:if test="${fn:length(entries) > 0}">
             <ul>
                 <c:forEach var="comment" items="${entries}">
+                    <c:if test="${entry.id == comment.pollId}">
                     <li>
                         ${comment.name} ${comment.date}: 
                         <security:authorize access="hasRole('ADMIN')"> 
                         [<a href="<c:url value="/guestbook/comment/delete?id=${comment.id}" />"><spring:message code="commentPage.delete" text="Default text"/></a>]
-                    </security:authorize>
-                    <br />
-                    <c:out value="${comment.message}" escapeXml="true" /><br />
-                </li>
+                        </security:authorize>
+                        <br />
+                        <c:out value="${comment.message}" escapeXml="true" /><br />
+                    </li>
+                </c:if>
             </c:forEach>
         </ul>
     </c:if>
