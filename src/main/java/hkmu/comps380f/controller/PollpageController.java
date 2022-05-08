@@ -70,14 +70,16 @@ public class PollpageController  {
     }
 
     @GetMapping("/comment")
-    public String pollPage(@RequestParam("id") Integer entryId, ModelMap model) {
+    public String pollPage(@RequestParam("id") Integer entryId, ModelMap model, Principal principal) {
         PollEntry entry = pEntryRepo.getEntryById(entryId);
+        model.addAttribute("name", principal.getName());
+        model.addAttribute("ans",paEntryRepo.listEntries());
         model.addAttribute("entries", gbEntryRepo.listEntries());
         model.addAttribute("entry", entry);
         return "CommentPage";
     }
 
-      @GetMapping("/comment/vote")
+    @GetMapping("/comment/vote")
     public View voteHandle(@RequestParam("id") Integer entryId, @RequestParam("ans") Integer ans, ModelMap model, Principal principal) {
         try{
             PollAnsEntry paEntry = paEntryRepo.getEntryByPollIdName(entryId, principal.getName());
