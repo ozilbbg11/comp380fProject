@@ -11,13 +11,13 @@
         <%@include file="../header.jsp" %>
         <security:authorize access="hasRole('ADMIN')">
             [<a href="<c:url value="/guestbook/editPoll?id=${entry.id}" />"><spring:message code="pollPage.edit" text="Default text"/></a>] 
-            [<a href="<c:url value="/guestbook/delete?id=${entry.id}" />"><spring:message code="pollPage.delete" text="Default text"/></a>]
+            [<a href="<c:url value="/guestbook/delete?id=${entry.id}" />"><spring:message code="pollPage.delete" text="Default text"/></a>]<br />
         </security:authorize>
-        <c:out value="${entry.question}" escapeXml="true" /><br />
-        <a href="<c:url value="/guestbook/comment/vote?id=${entry.id}&ans=1" />"><c:out value="${entry.choice1}" escapeXml="true" /></a><br />
-        <a href="<c:url value="/guestbook/comment/vote?id=${entry.id}&ans=2" />"><c:out value="${entry.choice2}" escapeXml="true" /></a><br />
-        <a href="<c:url value="/guestbook/comment/vote?id=${entry.id}&ans=3" />"><c:out value="${entry.choice3}" escapeXml="true" /></a><br />
-        <a href="<c:url value="/guestbook/comment/vote?id=${entry.id}&ans=4" />"><c:out value="${entry.choice4}" escapeXml="true" /></a><br />
+        Q:<c:out value="${entry.question}" escapeXml="true" /><br />
+        1.<a href="<c:url value="/guestbook/comment/vote?id=${entry.id}&ans=1" />"><c:out value="${entry.choice1}" escapeXml="true" /></a><br />
+        2.<a href="<c:url value="/guestbook/comment/vote?id=${entry.id}&ans=2" />"><c:out value="${entry.choice2}" escapeXml="true" /></a><br />
+        3.<a href="<c:url value="/guestbook/comment/vote?id=${entry.id}&ans=3" />"><c:out value="${entry.choice3}" escapeXml="true" /></a><br />
+        4.<a href="<c:url value="/guestbook/comment/vote?id=${entry.id}&ans=4" />"><c:out value="${entry.choice4}" escapeXml="true" /></a><br />
         <c:forEach var="answer" items="${ans}"> 
             <c:if test="${entry.id == answer.pollId}">
                 <c:if test="${name == answer.name}">
