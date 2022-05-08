@@ -102,13 +102,13 @@ public class PollpageController  {
     }
     
     @PostMapping("/comment/add")
-    public View addCommentHandle(CommentEntry entry, PollEntry pEntry) {
-        entry.setPollId(pEntry.getId());
+    public View addCommentHandle(@RequestParam("id") Integer entryId, CommentEntry entry, Principal principal) {
+        entry.setPollId(entryId);
+        entry.setName(principal.getName());
         entry.setDate(new Date());
         gbEntryRepo.addEntry(entry);
-        return new RedirectView("/guestbook/comment?id=" + entry.getId(), true);
+        return new RedirectView("/guestbook/comment?id=" + entryId, true);
     }
-
     @GetMapping("/comment/delete")
     public String deleteCommentEntry(@RequestParam("id") Integer entryId) {
         CommentEntry entry = gbEntryRepo.getEntryById(entryId);
