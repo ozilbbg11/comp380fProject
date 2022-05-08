@@ -111,7 +111,9 @@ public class PollpageController  {
 
     @GetMapping("/comment/delete")
     public String deleteCommentEntry(@RequestParam("id") Integer entryId) {
+        CommentEntry entry = gbEntryRepo.getEntryById(entryId);
+        Integer pollId = entry.getPollId();
         gbEntryRepo.removeEntryById(entryId);
-        return "redirect:/guestbook/comment?id=" + entryId;
+        return "redirect:/guestbook/comment?id=" + pollId;
     }
 }

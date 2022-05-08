@@ -55,7 +55,7 @@ public class PollAnsEntryRepositoryImpl implements PollAnsEntryRepository {
     }
 
     private static final String SQL_UPDATE_ENTRY
-            = "update answer set ans = ? where poll_id = ?, name = ?";
+            = "update answer set ans = ? where poll_id = ? and name = ?";
     @Override
     public void updateEntry(PollAnsEntry entry) {
         jdbcOp.update(SQL_UPDATE_ENTRY,
@@ -72,7 +72,7 @@ public class PollAnsEntryRepositoryImpl implements PollAnsEntryRepository {
     }
 
     private static final String SQL_SELECT_ENTRY
-            = "select poll_id, name, ans from answer where poll_id = ? and name = ?";
+            = "select * from answer where poll_id = ? and name = ?";
     @Override
     public PollAnsEntry getEntryByPollIdName(Integer id, String name) {
         return jdbcOp.queryForObject(SQL_SELECT_ENTRY, new EntryRowMapper(), id, name);
