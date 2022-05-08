@@ -37,7 +37,7 @@ public class CommentEntryRepositoryImpl implements CommentEntryRepository {
             entry.setPollId(rs.getInt("poll_id"));
             entry.setName(rs.getString("name"));
             entry.setMessage(rs.getString("message"));
-            entry.setDate(toDate(rs.getTimestamp("date")));
+            entry.setDate(rs.getTimestamp("date"));
             return entry;
         }
     }

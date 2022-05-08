@@ -17,6 +17,7 @@
                 <div class="col-4">
                     <h1><spring:message code="pollPage.title" text="Default text"/></h1>
 
+
                     <c:if test="${fn:length(entries) == 0}">
                         <p><spring:message code="pollPage.pollMessage" text="Default text"/></p>
                     </c:if>
@@ -24,7 +25,7 @@
                         <ul>
                             <c:forEach var="entry" items="${entries}">
                                 <li>
-                                    <a href="<c:url value="/guestbook/comment?id=${entry.id}" />"><c:out value="${entry.question}" escapeXml="true" />
+                                    <a href="<c:url value="/guestbook/comment?id=${entry.id}" />"><c:out value="${entry.question}" escapeXml="true" /></a>
 
 
                                 </li>
@@ -33,7 +34,7 @@
                     </c:if>
                     <security:authorize access="hasRole('ADMIN')">
                         <p><a href="<c:url value="/guestbook/addPoll" />"><spring:message code="pollPage.addPoll" text="Default text"/></a></p>
-                    </security:authorize>
+                        </security:authorize>
                 </div>
 
                 <!--List lecture function-->

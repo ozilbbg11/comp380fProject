@@ -19,6 +19,7 @@ import hkmu.comps380f.dao.PollAnsEntryRepository;
 import hkmu.comps380f.model.PollAnsEntry;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 

@@ -40,7 +40,7 @@
             <ul>
                 <c:forEach var="comment" items="${entries}">
                     <li>
-                        ${comment.name} (<fmt:formatDate value="${comment.date}" pattern="yyyy-MM-dd" />): 
+                        ${comment.name} ${comment.date}: 
                         <security:authorize access="hasRole('ADMIN')"> 
                         [<a href="<c:url value="/guestbook/comment/delete?id=${comment.id}" />"><spring:message code="commentPage.delete" text="Default text"/></a>]
                     </security:authorize>
