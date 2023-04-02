@@ -1,6 +1,16 @@
 # Spring Project
+This is an Online Course Website based on Spring MVC and Spring Security framework. Providing following features:
 
+- A index of list of lectures
+- Each lecture page has
+  - lecture material section
+  - Comment section
+- Poll function to answer the MC question
+- Student Registration and login
+- View the comment history
 
+Prerequisite
+==================
 Download [db-derby-10.14.2.0-lib.zip ](https://db.apache.org/derby/releases/release-10_14_2_0.cgi) and setting up derby 
 database like:
 ```
